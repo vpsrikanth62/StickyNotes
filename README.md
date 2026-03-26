@@ -42,6 +42,12 @@ The debug APK will be generated under:
 
 - `app/build/outputs/apk/debug/`
 
+## Generated app (APK)
+
+This repo also includes a prebuilt debug APK for convenience:
+
+- `generated/StickyNoteWidget-debug.apk`
+
 ## Use the widget
 
 1. Long-press your home screen → **Widgets**
