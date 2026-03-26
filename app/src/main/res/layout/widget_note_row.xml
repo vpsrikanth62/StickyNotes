@@ -24,12 +24,15 @@
         android:layout_weight="1"
         android:layout_gravity="top"
         android:minHeight="0dp"
+        android:minLines="1"
+        android:maxLines="12"
         android:gravity="start"
         android:textColor="#F2FFFFFF"
         android:textSize="12.5sp"
         android:fontFamily="sans-serif"
         android:letterSpacing="0.01"
         android:includeFontPadding="false"
-        android:lineSpacingExtra="1dp" />
+        android:lineSpacingExtra="1dp"
+        android:ellipsize="end" />
 
 </LinearLayout>

@@ -50,13 +50,8 @@ class NoteWidgetFactory(
         return RemoteViews(context.packageName, R.layout.widget_note_row).apply {
             setInt(R.id.row_root, "setBackgroundResource", style.rowBgRes)
             setTextViewTextSize(R.id.tv_item_text, TypedValue.COMPLEX_UNIT_SP, style.rowTextSp)
-            setInt(R.id.tv_item_text, "setMinLines", style.rowMinLines)
-            setInt(R.id.tv_item_text, "setMaxLines", style.rowMaxLines)
-            // No ellipsis: allow long tasks to wrap into multiple lines.
-            setBoolean(R.id.tv_item_text, "setSingleLine", false)
-            val density = context.resources.displayMetrics.density
-            val minRowHeightPx = (34 * density).toInt()
-            setInt(R.id.row_root, "setMinimumHeight", minRowHeightPx)
+            // Keep RemoteViews calls conservative for OEM launchers:
+            // avoid reflection calls to setMinLines/setMaxLines/setSingleLine/setMinimumHeight.
 
             // Text: strikethrough + dimmed if done, bright if active
             if (item.isChecked) {
