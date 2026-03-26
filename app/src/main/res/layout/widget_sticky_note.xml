@@ -1,145 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Widget root layout: glass card with ListView of bullet items.
-  Extended to 4x4 min size.
--->
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/bg_widget_glass">
 
-    <!-- Gradient accent bar -->
-    <View
-        android:id="@+id/accent_bar"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/bg_accent_gradient" />
+    
 
-    <!-- Header row: title + progress + edit button -->
-    <RelativeLayout
-        android:id="@+id/header_row"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@id/accent_bar"
-        android:paddingStart="16dp"
-        android:paddingEnd="12dp"
-        android:gravity="center_vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/widget_inner_padding"
+        android:paddingEnd="@dimen/widget_inner_padding"
+        android:paddingBottom="8dp">
 
+        <!-- Header: single horizontal row so title + edit align predictably -->
         <LinearLayout
-            android:id="@+id/title_block"
-            android:layout_width="wrap_content"
+            android:id="@+id/header_row"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="vertical">
+            android:minHeight="38dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="6dp"
+            android:paddingBottom="4dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/title_block"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="\u2728 MY NOTES"
-                android:textColor="#FFFFFFFF"
-                android:textSize="11sp"
-                android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.15" />
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="start">
 
-            <TextView
-                android:id="@+id/tv_progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0 / 0 done"
-                android:textColor="#70FFFFFF"
-                android:textSize="9sp"
-                android:fontFamily="sans-serif"
-                android:letterSpacing="0.05" />
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/widget_title"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.02"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/tv_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/widget_progress_empty"
+                    android:textColor="#8AFFFFFF"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/btn_widget_edit"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_widget_edit"
+                android:background="@drawable/bg_widget_edit_btn"
+                android:scaleType="centerInside"
+                android:contentDescription="@string/widget_edit" />
         </LinearLayout>
 
-        <!-- Edit (pencil) button -->
-        <TextView
-            android:id="@+id/btn_widget_edit"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:text="\uD83D\uDD8A"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:background="@drawable/bg_btn_cancel" />
-
-    </RelativeLayout>
-
-    <!-- Glass divider -->
-    <View
-        android:id="@+id/divider_header"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/header_row"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/bg_divider_glass" />
-
-    <!-- Empty state -->
-    <TextView
-        android:id="@+id/tv_empty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider_header"
-        android:layout_above="@id/footer_row"
-        android:gravity="center"
-        android:text="\uD83D\uDD8A  Tap \uD83D\uDD8A to add notes"
-        android:textColor="#40FFFFFF"
-        android:textSize="12sp"
-        android:fontFamily="sans-serif"
-        android:padding="16dp" />
-
-    <!-- Bullet notes ListView -->
-    <ListView
-        android:id="@+id/lv_notes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider_header"
-        android:layout_above="@id/footer_row"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:clipToPadding="false"
-        android:scrollbars="none" />
-
-    <!-- Footer divider + hint -->
-    <LinearLayout
-        android:id="@+id/footer_row"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="10dp">
-
         <View
-            android:layout_width="0dp"
+            android:id="@+id/divider_header"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_weight="1"
             android:background="@drawable/bg_divider_glass" />
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="32dp">
+
+            <ListView
+                android:id="@+id/lv_notes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@drawable/widget_list_divider"
+                android:dividerHeight="5dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="2dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:clipToPadding="false"
+                android:scrollbars="none"
+                android:stackFromBottom="false"
+                android:transcriptMode="disabled" />
+
+            <!-- Same horizontal bounds as list (no extra inset — was causing misalignment) -->
+            <LinearLayout
+                android:id="@+id/tv_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp">
+
+                <TextView
+                    android:id="@+id/tv_empty_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/widget_empty_title"
+                    android:textColor="#99FFFFFF"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:includeFontPadding="false" />
+
+                <TextView
+                    android:id="@+id/tv_empty_sub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/widget_empty_sub"
+                    android:textColor="#55FFFFFF"
+                    android:textSize="10sp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:includeFontPadding="false" />
+            </LinearLayout>
+        </FrameLayout>
+
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/widget_footer_hint"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="  TAP ROW TO CHECK  "
-            android:textColor="#35FFFFFF"
-            android:textSize="7sp"
-            android:fontFamily="sans-serif-medium"
-            android:letterSpacing="0.2" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_divider_glass" />
+            android:gravity="center"
+            android:paddingTop="2dp"
+            android:text="@string/widget_footer_hint"
+            android:textColor="#3AFFFFFF"
+            android:textSize="8sp"
+            android:fontFamily="sans-serif"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:visibility="gone" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

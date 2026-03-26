@@ -1,5 +1,7 @@
 package com.example.stickynote
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
 import java.util.UUID
 
@@ -20,11 +22,13 @@ object NoteRepository {
     }
 
     fun toggle(context: Context, widgetId: Int, itemId: String): Boolean {
-        val items   = load(context, widgetId)
+        val items = load(context, widgetId)
         val updated = items.map { if (it.id == itemId) it.copy(isChecked = !it.isChecked) else it }
-        save(context, widgetId, updated)
+        // Keep active tasks first, completed tasks at the bottom.
+        val sorted = updated.filterNot { it.isChecked } + updated.filter { it.isChecked }
+        save(context, widgetId, sorted)
         // Return true if the toggled item is now checked (just completed)
-        return updated.find { it.id == itemId }?.isChecked == true
+        return sorted.find { it.id == itemId }?.isChecked == true
     }
 
     fun newItem(text: String = "") = NoteItem(
@@ -35,5 +39,15 @@ object NoteRepository {
     fun delete(context: Context, widgetId: Int) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit().remove("$KEY_PREFIX$widgetId").apply()
+    }
+
+    /** Drops checked items for every placed widget (runs at local midnight). */
+    fun purgeCompletedItems(context: Context) {
+        val mgr = AppWidgetManager.getInstance(context)
+        val ids = mgr.getAppWidgetIds(ComponentName(context, StickyNoteWidget::class.java))
+        for (id in ids) {
+            val items = load(context, id).filterNot { it.isChecked }
+            save(context, id, items)
+        }
     }
 }

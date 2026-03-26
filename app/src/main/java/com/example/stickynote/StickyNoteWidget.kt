@@ -3,14 +3,30 @@ package com.example.stickynote
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.view.View
 import android.widget.RemoteViews
 
 const val PREFS_NAME = "StickyNotePrefs"
+private const val ACTION_WALLPAPER_CHANGED = "android.intent.action.WALLPAPER_CHANGED"
 
 class StickyNoteWidget : AppWidgetProvider() {
+
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        if (intent.action == ACTION_WALLPAPER_CHANGED) {
+            val mgr = AppWidgetManager.getInstance(context)
+            val ids = mgr.getAppWidgetIds(ComponentName(context, StickyNoteWidget::class.java))
+            ids.forEach { updateWidget(context, mgr, it) }
+        }
+    }
+
+    override fun onEnabled(context: Context) {
+        MidnightPurgeScheduler.schedule(context)
+    }
 
     override fun onUpdate(
         context: Context,
@@ -33,12 +49,32 @@ fun updateWidget(
     val items    = NoteRepository.load(context, widgetId)
     val done     = items.count { it.isChecked }
     val total    = items.size
-    val progress = if (total > 0) "$done / $total done" else "No notes yet"
+    val style    = WidgetAppearanceResolver.resolve(context, total)
+    val progress = if (total > 0) {
+        context.getString(R.string.widget_progress_format, done, total)
+    } else {
+        context.getString(R.string.widget_progress_empty)
+    }
 
     val views = RemoteViews(context.packageName, R.layout.widget_sticky_note)
 
     // Progress label
     views.setTextViewText(R.id.tv_progress, progress)
+    views.setTextColor(R.id.tv_title, style.titleColor)
+    views.setTextColor(R.id.tv_progress, style.subColor)
+    views.setTextColor(R.id.widget_footer_hint, style.accentColor)
+    views.setTextColor(R.id.tv_empty_title, style.emptyTitleColor)
+    views.setTextColor(R.id.tv_empty_sub, style.emptySubColor)
+
+    // Contrast-aware palette based on current wallpaper.
+    views.setInt(R.id.widget_root, "setBackgroundResource", style.rootBgRes)
+    views.setInt(R.id.btn_widget_edit, "setBackgroundResource", style.editBtnBgRes)
+    views.setImageViewResource(R.id.btn_widget_edit, style.editIconRes)
+    views.setInt(R.id.btn_widget_edit, "setColorFilter", style.accentColor)
+    views.setInt(R.id.divider_header, "setBackgroundResource", style.dividerRes)
+
+    // Helper hint removed by request.
+    views.setViewVisibility(R.id.widget_footer_hint, View.GONE)
 
     // ── Wire ListView to NoteWidgetService ───────────────────────────────
     val serviceIntent = Intent(context, NoteWidgetService::class.java).apply {

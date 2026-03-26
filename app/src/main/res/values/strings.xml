@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sticky Note</string>
-    <string name="widget_description">A liquid glass sticky note for your home screen</string>
+    <string name="widget_description">Glass sticky notes — tap to edit, tap a row to complete</string>
     <string name="placeholder_text">✨ Tap to write a note…</string>
+
+    <string name="widget_title">Notes</string>
+    <string name="widget_progress_empty">No tasks yet</string>
+    <string name="widget_progress_format">%1$d of %2$d done</string>
+    <string name="widget_edit">Edit notes</string>
+    <string name="widget_empty_title">Nothing here</string>
+    <string name="widget_empty_sub">Tap edit to add tasks</string>
+    <string name="widget_footer_hint">Tap a row to check it off</string>
+    <string name="widget_checkbox">Mark done</string>
+
+    <string name="editor_settings">Editor settings</string>
+    <string name="font_montserrat">Font: Montserrat</string>
+    <string name="font_system">Font: System</string>
+    <string name="font_serif">Font: Serif</string>
+    <string name="font_mono">Font: Monospace</string>
+    <string name="font_medium">Font: Sans Medium</string>
+    <string name="font_condensed">Font: Sans Condensed</string>
+    <string name="accent_violet">Accent: Violet</string>
+    <string name="accent_cyan">Accent: Cyan</string>
+    <string name="accent_rose">Accent: Rose</string>
+    <string name="accent_emerald">Accent: Emerald</string>
+    <string name="accent_amber">Accent: Amber</string>
+    <string name="accent_indigo">Accent: Indigo</string>
+    <string name="accent_crimson">Accent: Crimson</string>
+    <string name="accent_teal">Accent: Teal</string>
+    <string name="menu_fonts">Fonts</string>
+    <string name="menu_accents">Accent Colors</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.stickynote
 
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -8,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 
 /** RecyclerView adapter for editing note items in EditNoteActivity. */
@@ -17,8 +17,10 @@ class NoteAdapter(
     private val onChanged: () -> Unit
 ) : RecyclerView.Adapter<NoteAdapter.NoteVH>() {
 
+    private var rowTypeface: Typeface = Typeface.create("montserrat", Typeface.NORMAL)
+
     inner class NoteVH(view: View) : RecyclerView.ViewHolder(view) {
-        val ivCheck : ImageView   = view.findViewById(R.id.iv_check_editor)
+        val rowRoot : View        = view.findViewById(R.id.row_editor_root)
         val etText  : EditText    = view.findViewById(R.id.et_item_text)
         val btnDel  : ImageButton = view.findViewById(R.id.btn_delete_item)
 
@@ -39,7 +41,7 @@ class NoteAdapter(
 
         // ── Checkbox state ────────────────────────────────────────────
         updateCheckUI(holder, item.isChecked)
-        holder.ivCheck.setOnClickListener {
+        holder.rowRoot.setOnClickListener {
             val pos = holder.bindingAdapterPosition
             if (pos == RecyclerView.NO_POSITION) return@setOnClickListener
             val toggled = items[pos].copy(isChecked = !items[pos].isChecked)
@@ -51,6 +53,7 @@ class NoteAdapter(
         // ── Text watcher: detach old, rebind new ──────────────────────
         holder.textWatcher?.let { holder.etText.removeTextChangedListener(it) }
         holder.etText.setText(item.text)
+        holder.etText.typeface = rowTypeface
         val watcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val pos = holder.bindingAdapterPosition
@@ -77,9 +80,6 @@ class NoteAdapter(
     }
 
     private fun updateCheckUI(holder: NoteVH, isChecked: Boolean) {
-        holder.ivCheck.setImageResource(
-            if (isChecked) R.drawable.ic_check_done else R.drawable.ic_check_empty
-        )
         val flags = if (isChecked)
             Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
         else
@@ -88,10 +88,25 @@ class NoteAdapter(
         holder.etText.alpha = if (isChecked) 0.45f else 1.0f
     }
 
-    fun addItem() {
-        items.add(NoteRepository.newItem())
-        notifyItemInserted(items.size - 1)
+    fun addItem(): Int {
+        val firstDone = items.indexOfFirst { it.isChecked }
+        val insertAt = if (firstDone == -1) items.size else firstDone
+        items.add(insertAt, NoteRepository.newItem())
+        notifyItemInserted(insertAt)
         onChanged()
+        return insertAt
+    }
+
+    fun setFontMode(mode: String) {
+        rowTypeface = when (mode) {
+            UiStylePrefs.FONT_SYSTEM -> Typeface.SANS_SERIF
+            UiStylePrefs.FONT_SERIF -> Typeface.SERIF
+            UiStylePrefs.FONT_MONO -> Typeface.MONOSPACE
+            UiStylePrefs.FONT_MEDIUM -> Typeface.create("sans-serif-medium", Typeface.NORMAL)
+            UiStylePrefs.FONT_CONDENSED -> Typeface.create("sans-serif-condensed", Typeface.NORMAL)
+            else -> Typeface.create("montserrat", Typeface.NORMAL)
+        }
+        notifyDataSetChanged()
     }
 
     fun getItems(): List<NoteItem> = items.toList()

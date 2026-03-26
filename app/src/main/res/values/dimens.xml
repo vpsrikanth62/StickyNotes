@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Widget: one inset so title, rows, and empty state share the same vertical guide -->
+    <dimen name="widget_inner_padding">12dp</dimen>
+    <dimen name="widget_row_h_pad">8dp</dimen>
+    <dimen name="widget_row_v_pad">6dp</dimen>
+    <dimen name="widget_check_text_gap">8dp</dimen>
+
+    <!-- Editor: list horizontal inset matches header padding -->
+    <dimen name="editor_horizontal_inset">20dp</dimen>
+</resources>

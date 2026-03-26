@@ -1,43 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    Floating glass card for editor.
-    Bigger corner radius (32dp) for Android 16 expressive feel.
--->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Frosted glass base -->
     <item>
         <shape android:shape="rectangle">
             <gradient
-                android:startColor="#D90E1022"
-                android:endColor="#D9180930"
-                android:angle="150"
+                android:startColor="#F3FFFFFF"
+                android:centerColor="#ECF5FFFE"
+                android:endColor="#E6F1F2FF"
+                android:angle="145"
                 android:type="linear" />
-            <corners android:radius="32dp" />
+            <corners android:radius="20dp" />
         </shape>
     </item>
 
-    <!-- Full-card catch-light shimmer so highlight reaches right/bottom as well -->
     <item>
         <shape android:shape="rectangle">
             <gradient
-                android:startColor="#26FFFFFF"
-                android:centerColor="#12FFFFFF"
+                android:startColor="#66FFFFFF"
+                android:centerColor="#20FFFFFF"
                 android:endColor="#00FFFFFF"
                 android:angle="135"
                 android:type="linear" />
-            <corners android:radius="32dp" />
+            <corners android:radius="20dp" />
         </shape>
     </item>
 
-    <!-- Glass border -->
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@android:color/transparent" />
             <stroke
                 android:width="1dp"
-                android:color="#3DFFFFFF" />
-            <corners android:radius="32dp" />
+                android:color="#33111111" />
+            <corners android:radius="20dp" />
         </shape>
     </item>
 

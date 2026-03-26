@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.TypedValue
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 
@@ -25,6 +26,7 @@ class NoteWidgetFactory(
         AppWidgetManager.INVALID_APPWIDGET_ID
     )
     private var items: List<NoteItem> = emptyList()
+    private var style: WidgetAppearance = WidgetAppearanceResolver.resolve(context, 0)
 
     override fun onCreate() { reload() }
     override fun onDataSetChanged() { reload() }
@@ -32,6 +34,7 @@ class NoteWidgetFactory(
 
     private fun reload() {
         items = NoteRepository.load(context, widgetId)
+        style = WidgetAppearanceResolver.resolve(context, items.size)
     }
 
     override fun getCount() = items.size
@@ -45,22 +48,26 @@ class NoteWidgetFactory(
             ?: return RemoteViews(context.packageName, R.layout.widget_note_row)
 
         return RemoteViews(context.packageName, R.layout.widget_note_row).apply {
-            // Checkbox icon: filled check vs empty circle
-            setImageViewResource(
-                R.id.iv_checkbox,
-                if (item.isChecked) R.drawable.ic_check_done else R.drawable.ic_check_empty
-            )
+            setInt(R.id.row_root, "setBackgroundResource", style.rowBgRes)
+            setTextViewTextSize(R.id.tv_item_text, TypedValue.COMPLEX_UNIT_SP, style.rowTextSp)
+            setInt(R.id.tv_item_text, "setMinLines", style.rowMinLines)
+            setInt(R.id.tv_item_text, "setMaxLines", style.rowMaxLines)
+            // No ellipsis: allow long tasks to wrap into multiple lines.
+            setBoolean(R.id.tv_item_text, "setSingleLine", false)
+            val density = context.resources.displayMetrics.density
+            val minRowHeightPx = (34 * density).toInt()
+            setInt(R.id.row_root, "setMinimumHeight", minRowHeightPx)
 
             // Text: strikethrough + dimmed if done, bright if active
             if (item.isChecked) {
                 setTextViewText(R.id.tv_item_text, item.text)
                 setInt(R.id.tv_item_text, "setPaintFlags",
                     Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG)
-                setTextColor(R.id.tv_item_text, 0x55FFFFFF.toInt())
+                setTextColor(R.id.tv_item_text, style.rowTextDoneColor)
             } else {
                 setTextViewText(R.id.tv_item_text, item.text)
                 setInt(R.id.tv_item_text, "setPaintFlags", Paint.ANTI_ALIAS_FLAG)
-                setTextColor(R.id.tv_item_text, 0xF0FFFFFF.toInt())
+                setTextColor(R.id.tv_item_text, style.rowTextActiveColor)
             }
 
             // Fill-in intent carries the item ID for the toggle action
@@ -72,5 +79,4 @@ class NoteWidgetFactory(
             setOnClickFillInIntent(R.id.row_root, fillIn)
         }
     }
-
 }

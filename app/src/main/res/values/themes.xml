@@ -6,6 +6,8 @@
         <item name="colorPrimary">#7C3AED</item>
         <item name="colorPrimaryDark">#0D0F1C</item>
         <item name="colorAccent">#EC4899</item>
+        <item name="android:fontFamily">montserrat</item>
+        <item name="fontFamily">montserrat</item>
     </style>
 
     <!--
@@ -18,6 +20,8 @@
         <item name="colorPrimary">#7C3AED</item>
         <item name="colorPrimaryDark">#0D0F1C</item>
         <item name="colorAccent">#EC4899</item>
+        <item name="android:fontFamily">montserrat</item>
+        <item name="fontFamily">montserrat</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/EditorWindowAnimation</item>
@@ -32,15 +36,6 @@
         <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>
         <item name="android:activityCloseEnterAnimation">@android:anim/fade_in</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_down_fade_out</item>
-    </style>
-
-    <!-- Motivation overlay: same as editor but smaller blur -->
-    <style name="MotivationTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@style/EditorWindowAnimation</item>
-        <item name="android:statusBarColor">#00000000</item>
-        <item name="android:navigationBarColor">#00000000</item>
     </style>
 
 </resources>

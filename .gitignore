@@ -16,3 +16,6 @@ app/build/
 
 # MacOS
 .DS_Store
+
+# Local/device test data (do not commit)
+sticky_prefs_device.xml
