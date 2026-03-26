@@ -48,6 +48,16 @@ This repo also includes a prebuilt debug APK for convenience:
 
 - `generated/StickyNoteWidget-debug.apk`
 
+### ABI-specific APKs
+
+If you need an APK that matches your device CPU ABI (for compatibility testing), use:
+
+- `generated/StickyNoteWidget-universal-debug.apk` (works on all ABIs; larger)
+- `generated/abis/StickyNoteWidget-arm64-v8a-debug.apk`
+- `generated/abis/StickyNoteWidget-armeabi-v7a-debug.apk`
+- `generated/abis/StickyNoteWidget-x86-debug.apk`
+- `generated/abis/StickyNoteWidget-x86_64-debug.apk`
+
 ## Use the widget
 
 1. Long-press your home screen → **Widgets**
