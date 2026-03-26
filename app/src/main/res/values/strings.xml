@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sticky Note Widget</string>
+    <string name="widget_description">A simple sticky note you can write on</string>
+    <string name="placeholder_text">📝 Tap to add a note...</string>
+    <string name="hint_edit">Write your note here...</string>
+</resources>
