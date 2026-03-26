@@ -7,19 +7,31 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
 
 const val PREFS_NAME = "StickyNotePrefs"
 private const val ACTION_WALLPAPER_CHANGED = "android.intent.action.WALLPAPER_CHANGED"
+private const val ACTION_FORCE_REFRESH = "com.example.stickynote.FORCE_WIDGET_REFRESH"
+private const val TAG = "StickyNoteWidgetDbg"
+private val WIDGET_ROW_IDS = intArrayOf(
+    R.id.tv_row_1,
+    R.id.tv_row_2,
+    R.id.tv_row_3,
+    R.id.tv_row_4
+)
 
 class StickyNoteWidget : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
-        if (intent.action == ACTION_WALLPAPER_CHANGED) {
+        Log.d(TAG, "onReceive action=${intent.action}")
+        if (intent.action == ACTION_WALLPAPER_CHANGED || intent.action == ACTION_FORCE_REFRESH) {
             val mgr = AppWidgetManager.getInstance(context)
             val ids = mgr.getAppWidgetIds(ComponentName(context, StickyNoteWidget::class.java))
+            Log.d(TAG, "refresh for ids=${ids.joinToString()}")
             ids.forEach { updateWidget(context, mgr, it) }
         }
     }
@@ -46,6 +58,7 @@ fun updateWidget(
     appWidgetManager: AppWidgetManager,
     widgetId: Int
 ) {
+    Log.d(TAG, "updateWidget start id=$widgetId")
     val items    = NoteRepository.load(context, widgetId)
     val done     = items.count { it.isChecked }
     val total    = items.size
@@ -76,26 +89,10 @@ fun updateWidget(
     // Helper hint removed by request.
     views.setViewVisibility(R.id.widget_footer_hint, View.GONE)
 
-    // ── Wire ListView to NoteWidgetService ───────────────────────────────
-    val serviceIntent = Intent(context, NoteWidgetService::class.java).apply {
-        putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
-        // Unique data URI prevents Android from reusing the wrong factory
-        data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
-    }
-    views.setRemoteAdapter(R.id.lv_notes, serviceIntent)
-    views.setEmptyView(R.id.lv_notes, R.id.tv_empty)
-
-    // ── Template PendingIntent for row taps (toggle checkbox) ────────────────
-    val toggleIntent = Intent(context, WidgetActionReceiver::class.java).apply {
-        action = ACTION_TOGGLE
-        putExtra(EXTRA_WIDGET_ID, widgetId)
-        data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
-    }
-    val togglePI = PendingIntent.getBroadcast(
-        context, widgetId, toggleIntent,
-        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
-    )
-    views.setPendingIntentTemplate(R.id.lv_notes, togglePI)
+    views.setViewVisibility(R.id.lv_notes, View.GONE)
+    views.setViewVisibility(R.id.compat_rows, if (total > 0) View.VISIBLE else View.GONE)
+    views.setViewVisibility(R.id.tv_empty, if (total > 0) View.GONE else View.VISIBLE)
+    bindWidgetRows(context, views, widgetId, items, style)
 
     // ── Edit button (pencil icon in header) ─────────────────────────────
     val editIntent = Intent(context, EditNoteActivity::class.java).apply {
@@ -109,4 +106,44 @@ fun updateWidget(
     views.setOnClickPendingIntent(R.id.btn_widget_edit, editPI)
 
     appWidgetManager.updateAppWidget(widgetId, views)
+    Log.d(TAG, "updateWidget applied id=$widgetId total=$total")
+}
+
+private fun bindWidgetRows(
+    context: Context,
+    views: RemoteViews,
+    widgetId: Int,
+    items: List<NoteItem>,
+    style: WidgetAppearance
+) {
+    WIDGET_ROW_IDS.forEachIndexed { idx, viewId ->
+        val item = items.getOrNull(idx)
+        if (item == null) {
+            views.setViewVisibility(viewId, View.GONE)
+            return@forEachIndexed
+        }
+
+        views.setViewVisibility(viewId, View.VISIBLE)
+        views.setTextViewText(viewId, item.text)
+        views.setTextColor(
+            viewId,
+            if (item.isChecked) style.rowTextDoneColor else style.rowTextActiveColor
+        )
+        views.setTextViewTextSize(viewId, TypedValue.COMPLEX_UNIT_SP, style.rowTextSp)
+        views.setInt(viewId, "setBackgroundResource", style.rowBgRes)
+
+        val rowIntent = Intent(context, WidgetActionReceiver::class.java).apply {
+            action = ACTION_TOGGLE
+            putExtra(EXTRA_WIDGET_ID, widgetId)
+            putExtra(EXTRA_ITEM_ID, item.id)
+            data = Uri.parse("stickynote://toggle/$widgetId/${item.id}")
+        }
+        val rowPI = PendingIntent.getBroadcast(
+            context,
+            widgetId * 100 + idx,
+            rowIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+        )
+        views.setOnClickPendingIntent(viewId, rowPI)
+    }
 }

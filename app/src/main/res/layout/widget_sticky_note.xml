@@ -67,12 +67,13 @@
             android:contentDescription="@string/widget_edit" />
     </LinearLayout>
 
-    <View
+    <TextView
         android:id="@+id/divider_header"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/header_row"
-        android:background="@drawable/bg_divider_glass" />
+        android:background="@drawable/bg_divider_glass"
+        android:text="" />
 
     <FrameLayout
         android:id="@+id/list_container"
@@ -82,20 +83,98 @@
         android:layout_above="@id/widget_footer_hint"
         android:minHeight="32dp">
 
-        <ListView
+        <TextView
             android:id="@+id/lv_notes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@drawable/widget_list_divider"
-            android:dividerHeight="5dp"
+            android:visibility="gone"
+            android:text="" />
+
+        <!-- OEM-safe fallback for launchers that fail collection widget rendering. -->
+        <LinearLayout
+            android:id="@+id/compat_rows"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
             android:paddingTop="4dp"
-            android:paddingBottom="2dp"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:clipToPadding="false"
-            android:scrollbars="none"
-            android:stackFromBottom="false"
-            android:transcriptMode="disabled" />
+            android:paddingBottom="2dp">
+
+            <TextView
+                android:id="@+id/tv_row_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:minHeight="34dp"
+                android:background="@drawable/bg_widget_row_chip"
+                android:paddingStart="@dimen/widget_row_h_pad"
+                android:paddingEnd="@dimen/widget_row_h_pad"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:textColor="#F2FFFFFF"
+                android:textSize="12.5sp"
+                android:fontFamily="sans-serif"
+                android:includeFontPadding="false"
+                android:maxLines="4"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical" />
+
+            <TextView
+                android:id="@+id/tv_row_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:minHeight="34dp"
+                android:background="@drawable/bg_widget_row_chip"
+                android:paddingStart="@dimen/widget_row_h_pad"
+                android:paddingEnd="@dimen/widget_row_h_pad"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:textColor="#F2FFFFFF"
+                android:textSize="12.5sp"
+                android:fontFamily="sans-serif"
+                android:includeFontPadding="false"
+                android:maxLines="4"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical" />
+
+            <TextView
+                android:id="@+id/tv_row_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:minHeight="34dp"
+                android:background="@drawable/bg_widget_row_chip"
+                android:paddingStart="@dimen/widget_row_h_pad"
+                android:paddingEnd="@dimen/widget_row_h_pad"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:textColor="#F2FFFFFF"
+                android:textSize="12.5sp"
+                android:fontFamily="sans-serif"
+                android:includeFontPadding="false"
+                android:maxLines="4"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical" />
+
+            <TextView
+                android:id="@+id/tv_row_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="34dp"
+                android:background="@drawable/bg_widget_row_chip"
+                android:paddingStart="@dimen/widget_row_h_pad"
+                android:paddingEnd="@dimen/widget_row_h_pad"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:textColor="#F2FFFFFF"
+                android:textSize="12.5sp"
+                android:fontFamily="sans-serif"
+                android:includeFontPadding="false"
+                android:maxLines="4"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical" />
+        </LinearLayout>
 
         <!-- Same horizontal bounds as list (no extra inset — was causing misalignment) -->
         <LinearLayout
