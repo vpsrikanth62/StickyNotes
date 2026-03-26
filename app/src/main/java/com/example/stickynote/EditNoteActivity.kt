@@ -50,9 +50,12 @@ class EditNoteActivity : AppCompatActivity() {
 
     private fun applyBlurBehind() {
         // True frosted glass blur on API 31+ (Android 12+)
+        // Must mutate AND re-set window.attributes, otherwise the change is ignored
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
-            window.attributes.blurBehindRadius = 48
+            val attrs = window.attributes
+            attrs.blurBehindRadius = 48
+            window.attributes = attrs  // <-- this line actually commits the blur radius
         }
     }
 

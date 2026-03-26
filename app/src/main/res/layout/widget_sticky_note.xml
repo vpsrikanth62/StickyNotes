@@ -72,10 +72,15 @@
         android:background="@drawable/bg_divider_glass" />
 
     <!-- === NOTE BODY === -->
+    <!--
+        IMPORTANT: Use wrap_content, NOT 0dp.
+        In RelativeLayout, 0dp collapses to zero height and hides the text!
+        layout_below + layout_above positions it correctly between header and footer.
+    -->
     <TextView
         android:id="@+id/tv_note"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/divider_top"
         android:layout_above="@id/footer_row"
         android:paddingStart="18dp"
