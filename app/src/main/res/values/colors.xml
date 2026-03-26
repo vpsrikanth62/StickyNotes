@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#E6A817</color>
-    <color name="colorPrimaryDark">#B37E00</color>
-    <color name="colorAccent">#FFF176</color>
-    <color name="noteYellow">#FFF176</color>
-    <color name="noteText">#4A3728</color>
-    <color name="noteBorder">#E6C619</color>
-    <color name="white">#FFFFFF</color>
+    <!-- === LIQUID GLASS PALETTE === -->
+
+    <!-- Deep space backgrounds -->
+    <color name="bg_deep">#0D0F1C</color>
+    <color name="bg_midnight">#12102A</color>
+    <color name="bg_purple_deep">#1A0A2E</color>
+
+    <!-- Glass surface layers -->
+    <color name="glass_surface">#1AFFFFFF</color>
+    <color name="glass_highlight">#33FFFFFF</color>
+    <color name="glass_border">#26FFFFFF</color>
+    <color name="glass_shimmer">#0DFFFFFF</color>
+
+    <!-- Gradient accents -->
+    <color name="accent_violet">#7C3AED</color>
+    <color name="accent_purple">#A855F7</color>
+    <color name="accent_pink">#EC4899</color>
+    <color name="accent_rose">#FF2D78</color>
+    <color name="accent_cyan">#06B6D4</color>
+    <color name="accent_indigo">#6366F1</color>
+
+    <!-- Text -->
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#B3FFFFFF</color>
+    <color name="text_tertiary">#66FFFFFF</color>
+    <color name="text_hint">#40FFFFFF</color>
+    <color name="text_placeholder">#4DFFFFFF</color>
+
+    <!-- Widget specific -->
+    <color name="widget_bg_start">#CC0D0F1C</color>
+    <color name="widget_bg_end">#CC1A0A2E</color>
+
+    <!-- Button -->
+    <color name="btn_save_start">#7C3AED</color>
+    <color name="btn_save_end">#EC4899</color>
+    <color name="btn_cancel_border">#40FFFFFF</color>
+
+    <!-- Scrim -->
+    <color name="scrim">#CC000000</color>
 </resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Liquid glass widget card.
+    Layer 1: deep translucent base
+    Layer 2: white shimmer gradient (top-left catch-light)
+    Layer 3: crisp glass border
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Deep translucent base -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#E50D0F1C"
+                android:endColor="#E51A0A2E"
+                android:angle="135"
+                android:type="linear" />
+            <corners android:radius="28dp" />
+        </shape>
+    </item>
+
+    <!-- White shimmer catch-light (top-left) -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#2EFFFFFF"
+                android:centerColor="#10FFFFFF"
+                android:endColor="#00FFFFFF"
+                android:angle="135"
+                android:type="linear" />
+            <corners android:radius="28dp" />
+        </shape>
+    </item>
+
+    <!-- Glass border ring -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="1dp"
+                android:color="#30FFFFFF" />
+            <corners android:radius="28dp" />
+        </shape>
+    </item>
+
+</layer-list>

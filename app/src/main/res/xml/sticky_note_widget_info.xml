@@ -10,4 +10,4 @@
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
     android:description="@string/widget_description"
-    android:previewImage="@drawable/bg_sticky_note" />
+    android:previewImage="@drawable/bg_widget_glass" />
