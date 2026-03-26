@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- Widget Receiver -->
+        <!-- Widget Provider -->
         <receiver
             android:name=".StickyNoteWidget"
             android:exported="true">
@@ -21,13 +21,33 @@
                 android:resource="@xml/sticky_note_widget_info" />
         </receiver>
 
-        <!-- Edit Note Activity -->
+        <!-- Toggle checkbox broadcast receiver -->
+        <receiver
+            android:name=".WidgetActionReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.stickynote.TOGGLE_ITEM" />
+            </intent-filter>
+        </receiver>
+
+        <!-- RemoteViews ListView service -->
+        <service
+            android:name=".NoteWidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <!-- Note editor activity -->
         <activity
             android:name=".EditNoteActivity"
             android:theme="@style/EditNoteTheme"
             android:exported="false"
             android:windowSoftInputMode="stateVisible|adjustResize" />
 
-    </application>
+        <!-- Motivation overlay activity -->
+        <activity
+            android:name=".MotivationActivity"
+            android:theme="@style/MotivationTheme"
+            android:exported="false" />
 
+    </application>
 </manifest>

@@ -34,4 +34,13 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_down_fade_out</item>
     </style>
 
+    <!-- Motivation overlay: same as editor but smaller blur -->
+    <style name="MotivationTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/EditorWindowAnimation</item>
+        <item name="android:statusBarColor">#00000000</item>
+        <item name="android:navigationBarColor">#00000000</item>
+    </style>
+
 </resources>

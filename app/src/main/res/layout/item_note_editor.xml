@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Editor row item: checkbox + editable text + delete -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="4dp"
+    android:paddingEnd="4dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <!-- Tappable checkbox -->
+    <ImageView
+        android:id="@+id/iv_check_editor"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_check_empty"
+        android:padding="2dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="checkbox" />
+
+    <!-- Editable text -->
+    <EditText
+        android:id="@+id/et_item_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:hint="Add a note..."
+        android:hintTextColor="#35FFFFFF"
+        android:textColor="#F0FFFFFF"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif"
+        android:inputType="textCapSentences"
+        android:maxLines="1"
+        android:imeOptions="actionNext" />
+
+    <!-- Delete button -->
+    <ImageButton
+        android:id="@+id/btn_delete_item"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:background="@android:color/transparent"
+        android:tint="#40FFFFFF"
+        android:layout_marginStart="6dp"
+        android:contentDescription="delete" />
+
+</LinearLayout>

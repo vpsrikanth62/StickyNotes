@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    Editor screen: full-screen dark gradient scrim
-    with a floating glass card in the center.
-    Android 16 Expressive / Liquid Glass Design Language.
--->
+<!-- Editor screen: full glass card with RecyclerView bullets -->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_editor_scrim">
 
-    <!-- === GLASS CARD (centered) === -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
         android:orientation="vertical"
         android:background="@drawable/bg_glass_card"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:elevation="24dp">
+        android:elevation="28dp">
 
-        <!-- Gradient accent bar at top of card -->
+        <!-- Gradient accent bar -->
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:background="@drawable/bg_accent_gradient" />
 
-        <!-- === CARD HEADER === -->
+        <!-- Card header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,10 +30,9 @@
             android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:paddingTop="20dp"
+            android:paddingTop="18dp"
             android:paddingBottom="14dp">
 
-            <!-- Icon + Title -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -48,7 +42,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="✨ Sticky Note"
+                    android:text="\u2728 Sticky Notes"
                     android:textColor="#FFFFFFFF"
                     android:textSize="20sp"
                     android:fontFamily="sans-serif-medium"
@@ -57,31 +51,29 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Write anything — it sticks"
-                    android:textColor="#80FFFFFF"
-                    android:textSize="12sp"
+                    android:text="Tap circle to mark done"
+                    android:textColor="#66FFFFFF"
+                    android:textSize="11sp"
                     android:fontFamily="sans-serif"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
 
-            <!-- Char count badge -->
+            <!-- done/total badge -->
             <TextView
                 android:id="@+id/tv_char_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
-                android:textColor="#60FFFFFF"
-                android:textSize="11sp"
+                android:text="0/0"
+                android:textColor="#80FFFFFF"
+                android:textSize="12sp"
                 android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.05"
                 android:background="@drawable/bg_btn_cancel"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp" />
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp" />
         </LinearLayout>
 
-        <!-- Glass divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -89,27 +81,19 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/bg_divider_glass" />
 
-        <!-- === NOTE INPUT AREA === -->
-        <EditText
-            android:id="@+id/et_note"
+        <!-- RecyclerView bullet list -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_notes"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:background="@android:color/transparent"
-            android:hint="Start writing your thoughts..."
-            android:hintTextColor="#40FFFFFF"
-            android:textColor="#F0FFFFFF"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            android:lineSpacingMultiplier="1.6"
-            android:gravity="top|start"
-            android:inputType="textMultiLine|textCapSentences"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:cursorVisible="true" />
+            android:layout_height="wrap_content"
+            android:maxHeight="320dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never" />
 
-        <!-- Glass divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -117,7 +101,26 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/bg_divider_glass" />
 
-        <!-- === ACTION BUTTONS === -->
+        <!-- Add item button -->
+        <Button
+            android:id="@+id/btn_add_item"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="+ Add bullet"
+            android:textColor="#A855F7"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.02" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_divider_glass" />
+
+        <!-- Action buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,42 +128,35 @@
             android:gravity="end|center_vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="20dp"
->
+            android:paddingTop="14dp"
+            android:paddingBottom="20dp">
 
-            <!-- Cancel ghost button -->
             <Button
                 android:id="@+id/btn_cancel"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="46dp"
                 android:text="Cancel"
-                android:textColor="#99FFFFFF"
+                android:textColor="#80FFFFFF"
                 android:textSize="14sp"
                 android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.02"
                 android:background="@drawable/bg_btn_cancel"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:layout_marginEnd="10dp" />
 
-            <!-- Save gradient button -->
             <Button
                 android:id="@+id/btn_save"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="46dp"
-                android:text="Save Note"
+                android:text="Save Notes"
                 android:textColor="#FFFFFFFF"
                 android:textSize="14sp"
                 android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.02"
                 android:background="@drawable/bg_btn_save"
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp" />
-
         </LinearLayout>
     </LinearLayout>
-
 </FrameLayout>

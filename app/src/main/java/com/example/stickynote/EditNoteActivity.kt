@@ -1,34 +1,32 @@
 package com.example.stickynote
 
 import android.appwidget.AppWidgetManager
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class EditNoteActivity : AppCompatActivity() {
 
     private var widgetId = AppWidgetManager.INVALID_APPWIDGET_ID
 
-    private lateinit var etNote: EditText
-    private lateinit var btnSave: Button
-    private lateinit var btnCancel: Button
-    private lateinit var tvCharCount: TextView
+    private lateinit var rvNotes    : RecyclerView
+    private lateinit var btnAdd     : Button
+    private lateinit var btnSave    : Button
+    private lateinit var btnCancel  : Button
+    private lateinit var tvCount    : TextView
+    private lateinit var adapter    : NoteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Enable blur-behind on Android 12+ for true glass effect
         applyBlurBehind()
-
         setContentView(R.layout.activity_edit_note)
 
-        // Show keyboard immediately
         window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE or
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
@@ -39,66 +37,61 @@ class EditNoteActivity : AppCompatActivity() {
             AppWidgetManager.INVALID_APPWIDGET_ID
         ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
 
-        if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-            finish()
-            return
-        }
+        if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) { finish(); return }
 
         bindViews()
-        loadSavedNote()
+        loadNotes()
     }
 
     private fun applyBlurBehind() {
-        // True frosted glass blur on API 31+ (Android 12+)
-        // Must mutate AND re-set window.attributes, otherwise the change is ignored
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
             val attrs = window.attributes
             attrs.blurBehindRadius = 48
-            window.attributes = attrs  // <-- this line actually commits the blur radius
+            window.attributes = attrs
         }
     }
 
     private fun bindViews() {
-        etNote = findViewById(R.id.et_note)
-        btnSave = findViewById(R.id.btn_save)
+        rvNotes   = findViewById(R.id.rv_notes)
+        btnAdd    = findViewById(R.id.btn_add_item)
+        btnSave   = findViewById(R.id.btn_save)
         btnCancel = findViewById(R.id.btn_cancel)
-        tvCharCount = findViewById(R.id.tv_char_count)
+        tvCount   = findViewById(R.id.tv_char_count)
 
-        etNote.addTextChangedListener(object : android.text.TextWatcher {
-            override fun afterTextChanged(s: android.text.Editable?) {
-                updateCharCount(s?.length ?: 0)
-            }
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
+        adapter = NoteAdapter(mutableListOf()) { updateCount() }
+        rvNotes.layoutManager = LinearLayoutManager(this)
+        rvNotes.adapter = adapter
 
-        btnSave.setOnClickListener { saveNote() }
+        btnAdd.setOnClickListener {
+            adapter.addItem()
+            rvNotes.smoothScrollToPosition(adapter.itemCount - 1)
+        }
+        btnSave.setOnClickListener   { saveNotes() }
         btnCancel.setOnClickListener { finish() }
     }
 
-    private fun loadSavedNote() {
-        val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val savedNote = prefs.getString("$PREF_KEY_PREFIX$widgetId", "") ?: ""
-        etNote.setText(savedNote)
-        etNote.setSelection(savedNote.length)
-        updateCharCount(savedNote.length)
+    private fun loadNotes() {
+        val saved = NoteRepository.load(this, widgetId).toMutableList()
+        if (saved.isEmpty()) saved.add(NoteRepository.newItem())
+        adapter = NoteAdapter(saved) { updateCount() }
+        rvNotes.adapter = adapter
+        updateCount()
     }
 
-    private fun updateCharCount(length: Int) {
-        tvCharCount.text = "$length"
+    private fun updateCount() {
+        val items = adapter.getItems()
+        val done  = items.count { it.isChecked }
+        tvCount.text = "${done}/${items.size}"
     }
 
-    private fun saveNote() {
-        val noteText = etNote.text.toString()
-
-        val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        prefs.edit().putString("$PREF_KEY_PREFIX$widgetId", noteText).apply()
-
-        val appWidgetManager = AppWidgetManager.getInstance(this)
-        updateWidget(this, appWidgetManager, widgetId)
-
-        Toast.makeText(this, "Saved ✨", Toast.LENGTH_SHORT).show()
+    private fun saveNotes() {
+        val items = adapter.getItems().filter { it.text.isNotBlank() }
+        NoteRepository.save(this, widgetId, items)
+        val manager = AppWidgetManager.getInstance(this)
+        manager.notifyAppWidgetViewDataChanged(widgetId, R.id.lv_notes)
+        updateWidget(this, manager, widgetId)
+        Toast.makeText(this, "Saved \u2728", Toast.LENGTH_SHORT).show()
         finish()
     }
 }

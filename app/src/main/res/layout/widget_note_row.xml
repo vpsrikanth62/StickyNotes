@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Single row inside the widget ListView -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_root"
+    android:layout_width="match_parent"
+    android:layout_height="36dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp">
+
+    <!-- Checkbox icon (ic_check_empty / ic_check_done) -->
+    <ImageView
+        android:id="@+id/iv_checkbox"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_check_empty"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="checkbox" />
+
+    <!-- Bullet text -->
+    <TextView
+        android:id="@+id/tv_item_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#F0FFFFFF"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif"
+        android:singleLine="true"
+        android:ellipsize="end" />
+
+</LinearLayout>

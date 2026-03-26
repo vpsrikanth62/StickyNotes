@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Liquid Glass Sticky Note Widget
-    Android 16 Expressive Design Language
+  Widget root layout: glass card with ListView of bullet items.
+  Extended to 4x4 min size.
 -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_widget_glass"
-    android:padding="0dp">
+    android:background="@drawable/bg_widget_glass">
 
-    <!-- === TOP ACCENT BAR (gradient purple→pink) === -->
+    <!-- Gradient accent bar -->
     <View
         android:id="@+id/accent_bar"
         android:layout_width="match_parent"
@@ -19,51 +18,60 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/bg_accent_gradient" />
 
-    <!-- === HEADER ROW === -->
-    <LinearLayout
+    <!-- Header row: title + progress + edit button -->
+    <RelativeLayout
         android:id="@+id/header_row"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_below="@id/accent_bar"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:paddingStart="16dp"
-        android:paddingEnd="14dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="8dp">
+        android:paddingEnd="12dp"
+        android:gravity="center_vertical">
 
-        <!-- Sparkle / pin icon -->
-        <TextView
+        <LinearLayout
+            android:id="@+id/title_block"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="✨"
-            android:textSize="13sp"
-            android:layout_marginEnd="6dp" />
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
 
-        <!-- Title label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\u2728 MY NOTES"
+                android:textColor="#FFFFFFFF"
+                android:textSize="11sp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.15" />
+
+            <TextView
+                android:id="@+id/tv_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 / 0 done"
+                android:textColor="#70FFFFFF"
+                android:textSize="9sp"
+                android:fontFamily="sans-serif"
+                android:letterSpacing="0.05" />
+        </LinearLayout>
+
+        <!-- Edit (pencil) button -->
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="NOTE"
-            android:textColor="#B3FFFFFF"
-            android:textSize="10sp"
-            android:fontFamily="sans-serif-medium"
-            android:letterSpacing="0.18" />
+            android:id="@+id/btn_widget_edit"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="\uD83D\uDD8A"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:background="@drawable/bg_btn_cancel" />
 
-        <!-- Subtle right-side glyph -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="•••"
-            android:textColor="#40FFFFFF"
-            android:textSize="10sp"
-            android:letterSpacing="0.12" />
-    </LinearLayout>
+    </RelativeLayout>
 
-    <!-- === GLASS DIVIDER === -->
+    <!-- Glass divider -->
     <View
-        android:id="@+id/divider_top"
+        android:id="@+id/divider_header"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/header_row"
@@ -71,32 +79,35 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/bg_divider_glass" />
 
-    <!-- === NOTE BODY === -->
-    <!--
-        IMPORTANT: Use wrap_content, NOT 0dp.
-        In RelativeLayout, 0dp collapses to zero height and hides the text!
-        layout_below + layout_above positions it correctly between header and footer.
-    -->
+    <!-- Empty state -->
     <TextView
-        android:id="@+id/tv_note"
+        android:id="@+id/tv_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/divider_top"
+        android:layout_below="@id/divider_header"
         android:layout_above="@id/footer_row"
-        android:paddingStart="18dp"
-        android:paddingEnd="18dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="8dp"
-        android:textColor="#FFFFFFFF"
-        android:textSize="14sp"
+        android:gravity="center"
+        android:text="\uD83D\uDD8A  Tap \uD83D\uDD8A to add notes"
+        android:textColor="#40FFFFFF"
+        android:textSize="12sp"
         android:fontFamily="sans-serif"
-        android:lineSpacingMultiplier="1.5"
-        android:gravity="top|start"
-        android:ellipsize="end"
-        android:maxLines="12"
-        android:text="Tap to add a note..." />
+        android:padding="16dp" />
 
-    <!-- === FOOTER HINT ROW === -->
+    <!-- Bullet notes ListView -->
+    <ListView
+        android:id="@+id/lv_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider_header"
+        android:layout_above="@id/footer_row"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:clipToPadding="false"
+        android:scrollbars="none" />
+
+    <!-- Footer divider + hint -->
     <LinearLayout
         android:id="@+id/footer_row"
         android:layout_width="match_parent"
@@ -106,8 +117,8 @@
         android:gravity="center_vertical"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:paddingBottom="12dp"
-        android:paddingTop="6dp">
+        android:paddingTop="6dp"
+        android:paddingBottom="10dp">
 
         <View
             android:layout_width="0dp"
@@ -118,9 +129,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="  TAP TO EDIT  "
-            android:textColor="#40FFFFFF"
-            android:textSize="8sp"
+            android:text="  TAP ROW TO CHECK  "
+            android:textColor="#35FFFFFF"
+            android:textSize="7sp"
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="0.2" />
 
@@ -129,7 +140,6 @@
             android:layout_height="1dp"
             android:layout_weight="1"
             android:background="@drawable/bg_divider_glass" />
-
     </LinearLayout>
 
 </RelativeLayout>

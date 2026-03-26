@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Motivation overlay: blurred glass card with emoji + message -->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/motivation_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/bg_glass_card"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="28dp"
+        android:elevation="32dp">
+
+        <!-- Top gradient bar -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/bg_accent_gradient"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Big emoji -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\uD83C\uDF1F"
+            android:textSize="56sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- GREAT WORK label -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TASK DONE!"
+            android:textColor="#FFFFFFFF"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.22"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Dynamic motivation message -->
+        <TextView
+            android:id="@+id/tv_motivation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#CCF0FFFFFF"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:lineSpacingMultiplier="1.5"
+            android:gravity="center"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Dismiss hint -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tap anywhere to dismiss"
+            android:textColor="#40FFFFFF"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif"
+            android:letterSpacing="0.05" />
+    </LinearLayout>
+</FrameLayout>
