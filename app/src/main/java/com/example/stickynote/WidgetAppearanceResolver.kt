@@ -63,8 +63,9 @@ object WidgetAppearanceResolver {
                 footerColor = Color.parseColor("#8A202020"),
                 emptyTitleColor = Color.parseColor("#D9202020"),
                 emptySubColor = Color.parseColor("#99202020"),
-                rowTextActiveColor = Color.parseColor("#F2FFFFFF"),
-                rowTextDoneColor = Color.parseColor("#B3FFFFFF")
+                // Light surface uses light row chips -> text must be dark for contrast.
+                rowTextActiveColor = Color.parseColor("#E61A1A1A"),
+                rowTextDoneColor = Color.parseColor("#8A202020")
             )
         } else {
             WidgetAppearance(
