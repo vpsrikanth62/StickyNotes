@@ -40,8 +40,8 @@ class NoteAdapter(
         // ── Checkbox state ────────────────────────────────────────────
         updateCheckUI(holder, item.isChecked)
         holder.ivCheck.setOnClickListener {
-            val pos = holder.adapterPosition
-            if (pos == RecyclerView.NO_ID.toInt()) return@setOnClickListener
+            val pos = holder.bindingAdapterPosition
+            if (pos == RecyclerView.NO_POSITION) return@setOnClickListener
             val toggled = items[pos].copy(isChecked = !items[pos].isChecked)
             items[pos] = toggled
             updateCheckUI(holder, toggled.isChecked)
@@ -53,8 +53,8 @@ class NoteAdapter(
         holder.etText.setText(item.text)
         val watcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                val pos = holder.adapterPosition
-                if (pos != RecyclerView.NO_ID.toInt()) {
+                val pos = holder.bindingAdapterPosition
+                if (pos != RecyclerView.NO_POSITION) {
                     items[pos] = items[pos].copy(text = s?.toString() ?: "")
                     onChanged()
                 }
@@ -67,8 +67,8 @@ class NoteAdapter(
 
         // ── Delete ────────────────────────────────────────────────────
         holder.btnDel.setOnClickListener {
-            val pos = holder.adapterPosition
-            if (pos != RecyclerView.NO_ID.toInt()) {
+            val pos = holder.bindingAdapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
                 items.removeAt(pos)
                 notifyItemRemoved(pos)
                 onChanged()

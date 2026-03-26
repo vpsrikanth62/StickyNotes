@@ -28,7 +28,7 @@
         android:textColor="#F0FFFFFF"
         android:textSize="13sp"
         android:fontFamily="sans-serif"
-        android:singleLine="true"
+        android:maxLines="1"
         android:ellipsize="end" />
 
 </LinearLayout>

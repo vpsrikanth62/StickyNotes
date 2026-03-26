@@ -73,5 +73,4 @@ class NoteWidgetFactory(
         }
     }
 
-    override fun getExtraViews() = null
 }

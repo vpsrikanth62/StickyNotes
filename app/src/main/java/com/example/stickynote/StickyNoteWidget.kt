@@ -9,7 +9,6 @@ import android.net.Uri
 import android.widget.RemoteViews
 
 const val PREFS_NAME = "StickyNotePrefs"
-const val PREF_KEY_PREFIX = "note_widget_"
 
 class StickyNoteWidget : AppWidgetProvider() {
 
