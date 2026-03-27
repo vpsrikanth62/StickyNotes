@@ -9,9 +9,16 @@
     <string name="widget_progress_format">%1$d of %2$d done</string>
     <string name="widget_edit">Edit notes</string>
     <string name="widget_empty_title">Nothing here</string>
-    <string name="widget_empty_sub">Tap edit to add tasks</string>
+    <string name="widget_empty_sub">Tap empty area to add tasks</string>
     <string name="widget_footer_hint">Tap a row to check it off</string>
     <string name="widget_checkbox">Mark done</string>
+    <string name="widget_default_item_1">Tap edit icon to customize tasks</string>
+    <string name="widget_default_item_2">Double tap a row to mark done</string>
+    <string name="widget_default_item_3">Tap empty area to open editor</string>
+    <string name="widget_preview_progress">1 of 3 done</string>
+    <string name="widget_preview_item_1">Tap edit icon to customize tasks</string>
+    <string name="widget_preview_item_2">Double tap a row to mark done</string>
+    <string name="widget_preview_item_3">Tap empty area to open editor</string>
 
     <string name="editor_settings">Editor settings</string>
     <string name="font_montserrat">Font: Montserrat</string>

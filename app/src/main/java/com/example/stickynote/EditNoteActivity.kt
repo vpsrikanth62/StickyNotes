@@ -1,6 +1,7 @@
 package com.example.stickynote
 
 import android.appwidget.AppWidgetManager
+import android.os.Build
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -54,9 +55,10 @@ class EditNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_note)
 
+        applyWindowBlur()
         window.setSoftInputMode(
-            WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE or
-            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or
+            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
         )
 
         widgetId = intent?.extras?.getInt(
@@ -70,6 +72,21 @@ class EditNoteActivity : AppCompatActivity() {
         loadUiPrefs()
         applyEditorStyle()
         loadNotes()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        applyWindowBlur()
+    }
+
+    private fun applyWindowBlur() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return
+        val lp = window.attributes
+        lp.flags = lp.flags or WindowManager.LayoutParams.FLAG_BLUR_BEHIND
+        lp.blurBehindRadius = 56
+        lp.dimAmount = 0.18f
+        window.attributes = lp
+        window.setBackgroundBlurRadius(72)
     }
 
     private fun bindViews() {
@@ -205,11 +222,30 @@ class EditNoteActivity : AppCompatActivity() {
 
     private fun loadNotes() {
         val saved = NoteRepository.load(this, widgetId).toMutableList()
+        val shouldAutoFocusNew = saved.isEmpty() ||
+            intent?.getBooleanExtra(EXTRA_AUTO_FOCUS_EMPTY, false) == true
         if (saved.isEmpty()) saved.add(NoteRepository.newItem())
         adapter = NoteAdapter(saved) { updateCount() }
         adapter.setFontMode(fontMode)
         rvNotes.adapter = adapter
         updateCount()
+        if (shouldAutoFocusNew) {
+            focusEditorItem(0)
+        }
+    }
+
+    private fun focusEditorItem(position: Int) {
+        rvNotes.post outerPost@{
+            rvNotes.scrollToPosition(position)
+            rvNotes.post innerPost@{
+                val vh = rvNotes.findViewHolderForAdapterPosition(position) as? NoteAdapter.NoteVH
+                val et = vh?.etText ?: return@innerPost
+                et.requestFocus()
+                et.setSelection(et.text?.length ?: 0)
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+                imm?.showSoftInput(et, InputMethodManager.SHOW_IMPLICIT)
+            }
+        }
     }
 
     private fun updateCount() {

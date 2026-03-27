@@ -105,7 +105,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:minHeight="34dp"
                 android:background="@drawable/bg_widget_row_chip"
                 android:paddingStart="@dimen/widget_row_h_pad"
                 android:paddingEnd="@dimen/widget_row_h_pad"
@@ -115,16 +114,14 @@
                 android:textSize="12.5sp"
                 android:fontFamily="sans-serif"
                 android:includeFontPadding="false"
-                android:maxLines="4"
-                android:ellipsize="end"
-                android:gravity="start|center_vertical" />
+                android:maxLines="20"
+                android:gravity="start|top" />
 
             <TextView
                 android:id="@+id/tv_row_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:minHeight="34dp"
                 android:background="@drawable/bg_widget_row_chip"
                 android:paddingStart="@dimen/widget_row_h_pad"
                 android:paddingEnd="@dimen/widget_row_h_pad"
@@ -134,16 +131,14 @@
                 android:textSize="12.5sp"
                 android:fontFamily="sans-serif"
                 android:includeFontPadding="false"
-                android:maxLines="4"
-                android:ellipsize="end"
-                android:gravity="start|center_vertical" />
+                android:maxLines="20"
+                android:gravity="start|top" />
 
             <TextView
                 android:id="@+id/tv_row_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:minHeight="34dp"
                 android:background="@drawable/bg_widget_row_chip"
                 android:paddingStart="@dimen/widget_row_h_pad"
                 android:paddingEnd="@dimen/widget_row_h_pad"
@@ -153,15 +148,13 @@
                 android:textSize="12.5sp"
                 android:fontFamily="sans-serif"
                 android:includeFontPadding="false"
-                android:maxLines="4"
-                android:ellipsize="end"
-                android:gravity="start|center_vertical" />
+                android:maxLines="20"
+                android:gravity="start|top" />
 
             <TextView
                 android:id="@+id/tv_row_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="34dp"
                 android:background="@drawable/bg_widget_row_chip"
                 android:paddingStart="@dimen/widget_row_h_pad"
                 android:paddingEnd="@dimen/widget_row_h_pad"
@@ -171,9 +164,8 @@
                 android:textSize="12.5sp"
                 android:fontFamily="sans-serif"
                 android:includeFontPadding="false"
-                android:maxLines="4"
-                android:ellipsize="end"
-                android:gravity="start|center_vertical" />
+                android:maxLines="20"
+                android:gravity="start|top" />
         </LinearLayout>
 
         <!-- Same horizontal bounds as list (no extra inset — was causing misalignment) -->

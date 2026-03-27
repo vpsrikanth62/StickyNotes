@@ -42,6 +42,8 @@ class NoteAdapter(
         // ── Checkbox state ────────────────────────────────────────────
         updateCheckUI(holder, item.isChecked)
         holder.rowRoot.setOnClickListener {
+            // While actively typing in this row, don't allow toggle-by-tap.
+            if (holder.etText.hasFocus()) return@setOnClickListener
             val pos = holder.bindingAdapterPosition
             if (pos == RecyclerView.NO_POSITION) return@setOnClickListener
             val toggled = items[pos].copy(isChecked = !items[pos].isChecked)

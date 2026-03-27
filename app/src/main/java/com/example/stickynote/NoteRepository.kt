@@ -16,6 +16,11 @@ object NoteRepository {
         return if (json.isEmpty()) emptyList() else json.toNoteItems()
     }
 
+    fun hasStoredItems(context: Context, widgetId: Int): Boolean {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return prefs.contains("$KEY_PREFIX$widgetId")
+    }
+
     fun save(context: Context, widgetId: Int, items: List<NoteItem>) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit().putString("$KEY_PREFIX$widgetId", items.toJsonString()).apply()
