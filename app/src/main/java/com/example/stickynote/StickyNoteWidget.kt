@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.net.Uri
 import android.util.Log
 import android.util.TypedValue
@@ -129,6 +130,12 @@ private fun bindWidgetRows(
             viewId,
             if (item.isChecked) style.rowTextDoneColor else style.rowTextActiveColor
         )
+        val flags = if (item.isChecked) {
+            Paint.ANTI_ALIAS_FLAG or Paint.STRIKE_THRU_TEXT_FLAG
+        } else {
+            Paint.ANTI_ALIAS_FLAG
+        }
+        views.setInt(viewId, "setPaintFlags", flags)
         views.setTextViewTextSize(viewId, TypedValue.COMPLEX_UNIT_SP, style.rowTextSp)
         views.setInt(viewId, "setBackgroundResource", style.rowBgRes)
 
