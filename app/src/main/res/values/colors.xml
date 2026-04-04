@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- === LIQUID GLASS PALETTE === -->
+    <!-- === CLEAN LIGHT PALETTE === -->
 
-    <!-- Deep space backgrounds -->
-    <color name="bg_deep">#0D0F1C</color>
-    <color name="bg_midnight">#12102A</color>
-    <color name="bg_purple_deep">#1A0A2E</color>
+    <!-- Backgrounds -->
+    <color name="bg_surface">#FFFFFF</color>
+    <color name="bg_surface_dim">#F5F6F8</color>
+    <color name="bg_card">#FFFFFF</color>
 
-    <!-- Glass surface layers -->
-    <color name="glass_surface">#1AFFFFFF</color>
-    <color name="glass_highlight">#33FFFFFF</color>
-    <color name="glass_border">#26FFFFFF</color>
-    <color name="glass_shimmer">#0DFFFFFF</color>
+    <!-- Borders & dividers -->
+    <color name="border_light">#1A000000</color>
+    <color name="border_medium">#26000000</color>
+    <color name="divider">#12000000</color>
 
-    <!-- Gradient accents -->
+    <!-- Accent colors -->
     <color name="accent_violet">#7C3AED</color>
     <color name="accent_purple">#A855F7</color>
     <color name="accent_pink">#EC4899</color>
@@ -22,21 +21,21 @@
     <color name="accent_indigo">#6366F1</color>
 
     <!-- Text -->
-    <color name="text_primary">#FFFFFFFF</color>
-    <color name="text_secondary">#B3FFFFFF</color>
-    <color name="text_tertiary">#66FFFFFF</color>
-    <color name="text_hint">#40FFFFFF</color>
-    <color name="text_placeholder">#4DFFFFFF</color>
+    <color name="text_primary">#FF1A1A1A</color>
+    <color name="text_secondary">#99000000</color>
+    <color name="text_tertiary">#66000000</color>
+    <color name="text_hint">#40000000</color>
+    <color name="text_placeholder">#33000000</color>
 
     <!-- Widget specific -->
-    <color name="widget_bg_start">#CC0D0F1C</color>
-    <color name="widget_bg_end">#CC1A0A2E</color>
+    <color name="widget_bg_start">#F5FFFFFF</color>
+    <color name="widget_bg_end">#F0F5F6F8</color>
 
     <!-- Button -->
     <color name="btn_save_start">#7C3AED</color>
     <color name="btn_save_end">#EC4899</color>
-    <color name="btn_cancel_border">#40FFFFFF</color>
+    <color name="btn_cancel_border">#26000000</color>
 
     <!-- Scrim -->
-    <color name="scrim">#CC000000</color>
+    <color name="scrim">#40000000</color>
 </resources>

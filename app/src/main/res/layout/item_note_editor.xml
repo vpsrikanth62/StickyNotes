@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- One row: constrained anchors so checkbox/text/delete stay perfectly aligned -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/row_editor_root"
@@ -23,8 +22,8 @@
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
         android:hint="Add a note..."
-        android:textColorHint="#35FFFFFF"
-        android:textColor="#F0FFFFFF"
+        android:textColorHint="#33000000"
+        android:textColor="#E61A1A1A"
         android:textSize="15sp"
         android:fontFamily="sans-serif"
         android:inputType="textCapSentences"
@@ -42,7 +41,7 @@
         android:layout_centerVertical="true"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:tint="#80FFFFFF"
+        android:tint="#40000000"
         android:padding="6dp"
         android:scaleType="centerInside"
         android:contentDescription="delete" />

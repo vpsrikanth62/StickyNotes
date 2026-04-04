@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Editor: balanced header, list, equal-width actions -->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -14,11 +13,8 @@
         android:layout_marginEnd="20dp"
         android:orientation="vertical"
         android:background="@drawable/bg_glass_card"
-        android:elevation="28dp">
+        android:elevation="8dp">
 
-        
-
-        <!-- Header: title block top-aligned with badge -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,8 +35,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="\u2728 Sticky Notes"
-                    android:textColor="#FFFFFFFF"
+                    android:text="Sticky Notes"
+                    android:textColor="#E61A1A1A"
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
                     android:letterSpacing="-0.01"
@@ -61,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:text="0/0"
-                    android:textColor="#80FFFFFF"
+                    android:textColor="#66000000"
                     android:textSize="12sp"
                     android:fontFamily="sans-serif-medium"
                     android:background="@drawable/bg_btn_cancel"
@@ -119,7 +115,7 @@
             android:layout_height="44dp"
             android:text="+ Add bullet"
             android:textAllCaps="false"
-            android:textColor="#A855F7"
+            android:textColor="#7C3AED"
             android:textSize="14sp"
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="0.02" />
@@ -131,7 +127,26 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/bg_divider_glass" />
 
-        <!-- Equal-width actions -->
+        <!-- Preset tasks button -->
+        <Button
+            android:id="@+id/btn_preset_tasks"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Manage Preset Tasks"
+            android:textAllCaps="false"
+            android:textColor="#66000000"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.01" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_divider_glass" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -151,7 +166,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="Cancel"
                 android:textAllCaps="false"
-                android:textColor="#B3FFFFFF"
+                android:textColor="#66000000"
                 android:textSize="14sp"
                 android:fontFamily="sans-serif-medium"
                 android:background="@drawable/bg_btn_cancel"

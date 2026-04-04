@@ -1,36 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base app theme (not really used since no launcher activity) -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#7C3AED</item>
-        <item name="colorPrimaryDark">#0D0F1C</item>
-        <item name="colorAccent">#EC4899</item>
-        <item name="android:fontFamily">montserrat</item>
-        <item name="fontFamily">montserrat</item>
+        <item name="colorPrimaryDark">#F5F6F8</item>
+        <item name="colorAccent">#7C3AED</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">sans-serif</item>
     </style>
 
-    <!--
-        Edit Note Activity Theme:
-        - Translucent so the home screen bleeds through
-        - On API 31+ we add blur-behind in code
-        - Dialog-style animations
-    -->
-    <style name="EditNoteTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="EditNoteTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#7C3AED</item>
-        <item name="colorPrimaryDark">#0D0F1C</item>
-        <item name="colorAccent">#EC4899</item>
-        <item name="android:fontFamily">montserrat</item>
-        <item name="fontFamily">montserrat</item>
+        <item name="colorPrimaryDark">#F5F6F8</item>
+        <item name="colorAccent">#7C3AED</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">sans-serif</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/EditorWindowAnimation</item>
         <item name="android:statusBarColor">#00000000</item>
         <item name="android:navigationBarColor">#00000000</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <!-- Smooth scale-up animation for the editor -->
+    <style name="PresetTasksTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#7C3AED</item>
+        <item name="colorPrimaryDark">#F5F6F8</item>
+        <item name="colorAccent">#7C3AED</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/EditorWindowAnimation</item>
+        <item name="android:statusBarColor">#00000000</item>
+        <item name="android:navigationBarColor">#00000000</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
     <style name="EditorWindowAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_up_fade_in</item>
         <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>

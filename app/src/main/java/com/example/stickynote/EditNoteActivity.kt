@@ -1,6 +1,7 @@
 package com.example.stickynote
 
 import android.appwidget.AppWidgetManager
+import android.content.Intent
 import android.os.Build
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
@@ -49,13 +50,14 @@ class EditNoteActivity : AppCompatActivity() {
     private lateinit var btnCancel  : Button
     private lateinit var tvCount    : TextView
     private lateinit var btnSettings: ImageButton
+    private lateinit var btnPreset  : Button
     private lateinit var adapter    : NoteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_note)
 
-        applyWindowBlur()
+        applyWindowFlags()
         window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
@@ -76,17 +78,18 @@ class EditNoteActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        applyWindowBlur()
+        applyWindowFlags()
     }
 
-    private fun applyWindowBlur() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return
-        val lp = window.attributes
-        lp.flags = lp.flags or WindowManager.LayoutParams.FLAG_BLUR_BEHIND
-        lp.blurBehindRadius = 56
-        lp.dimAmount = 0.18f
-        window.attributes = lp
-        window.setBackgroundBlurRadius(72)
+    private fun applyWindowFlags() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val lp = window.attributes
+            lp.flags = lp.flags or WindowManager.LayoutParams.FLAG_BLUR_BEHIND
+            lp.blurBehindRadius = 40
+            lp.dimAmount = 0.10f
+            window.attributes = lp
+            window.setBackgroundBlurRadius(48)
+        }
     }
 
     private fun bindViews() {
@@ -96,6 +99,7 @@ class EditNoteActivity : AppCompatActivity() {
         btnCancel = findViewById(R.id.btn_cancel)
         tvCount   = findViewById(R.id.tv_char_count)
         btnSettings = findViewById(R.id.btn_settings)
+        btnPreset = findViewById(R.id.btn_preset_tasks)
 
         adapter = NoteAdapter(mutableListOf()) { updateCount() }
         rvNotes.layoutManager = LinearLayoutManager(this)
@@ -118,6 +122,10 @@ class EditNoteActivity : AppCompatActivity() {
         btnSave.setOnClickListener   { saveNotes() }
         btnCancel.setOnClickListener { finish() }
         btnSettings.setOnClickListener { showSettingsMenu() }
+        btnPreset.setOnClickListener {
+            val intent = Intent(this, PresetTasksActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun showSettingsMenu() {
@@ -262,7 +270,7 @@ class EditNoteActivity : AppCompatActivity() {
         val manager = AppWidgetManager.getInstance(this)
         manager.notifyAppWidgetViewDataChanged(widgetId, R.id.lv_notes)
         updateWidget(this, manager, widgetId)
-        Toast.makeText(this, "Saved \u2728", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Saved ✓", Toast.LENGTH_SHORT).show()
         finish()
     }
 }

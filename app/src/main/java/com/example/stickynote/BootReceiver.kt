@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 
-/** Reschedules midnight purge after reboot or app update. */
 class BootReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
@@ -12,6 +11,7 @@ class BootReceiver : BroadcastReceiver() {
         if (a == Intent.ACTION_BOOT_COMPLETED ||
             a == "android.intent.action.MY_PACKAGE_REPLACED") {
             MidnightPurgeScheduler.schedule(context)
+            NoonPresetScheduler.schedule(context)
         }
     }
 }

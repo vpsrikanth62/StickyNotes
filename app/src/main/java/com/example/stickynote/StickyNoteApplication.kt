@@ -7,5 +7,6 @@ class StickyNoteApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         MidnightPurgeScheduler.schedule(this)
+        NoonPresetScheduler.schedule(this)
     }
 }

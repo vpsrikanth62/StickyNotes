@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sticky Note</string>
-    <string name="widget_description">Glass sticky notes — tap to edit, tap a row to complete</string>
-    <string name="placeholder_text">✨ Tap to write a note…</string>
+    <string name="widget_description">Sticky notes widget — tap to edit, tap a row to complete</string>
+    <string name="placeholder_text">Tap to write a note…</string>
 
     <string name="widget_title">Notes</string>
     <string name="widget_progress_empty">No tasks yet</string>
@@ -37,4 +37,9 @@
     <string name="accent_teal">Accent: Teal</string>
     <string name="menu_fonts">Fonts</string>
     <string name="menu_accents">Accent Colors</string>
+
+    <string name="preset_tasks_title">Preset Tasks</string>
+    <string name="preset_tasks_subtitle">Selected tasks auto-add daily at 12:00 PM</string>
+    <string name="preset_add_hint">Add custom task…</string>
+    <string name="preset_saved">Presets saved</string>
 </resources>

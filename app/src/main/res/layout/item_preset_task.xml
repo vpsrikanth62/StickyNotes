@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_editor_note_row"
+    android:paddingStart="14dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_marginBottom="6dp"
+    android:minHeight="48dp">
+
+    <CheckBox
+        android:id="@+id/cb_preset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="#7C3AED"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingStart="0dp" />
+
+    <TextView
+        android:id="@+id/tv_preset_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:textColor="#E61A1A1A"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:includeFontPadding="false"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+    <ImageButton
+        android:id="@+id/btn_delete_preset"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:tint="#40000000"
+        android:padding="6dp"
+        android:scaleType="centerInside"
+        android:contentDescription="Remove preset" />
+
+</LinearLayout>
